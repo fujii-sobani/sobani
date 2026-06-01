@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オーガニック ローズヒップティー｜レビュー分析レポート</title>
+<style>
+  :root{
+    --rose:#b5304a; --rose-d:#8c1f36; --rose-l:#f7e4e8;
+    --ink:#2b2b2b; --sub:#6b6b6b; --line:#e7e2dd;
+    --green:#2e7d32; --green-l:#e9f3ea;
+    --red:#c0392b; --red-l:#fbeae8;
+    --amber:#b9770e; --amber-l:#fcf1df;
+    --bg:#fbf9f7; --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Meiryo",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.75;font-size:15px;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px;}
+  header.hero{background:linear-gradient(135deg,var(--rose) 0%,var(--rose-d) 100%);color:#fff;padding:46px 20px 40px;}
+  header.hero .inner{max-width:980px;margin:0 auto;}
+  .kicker{font-size:13px;letter-spacing:.18em;opacity:.9;margin:0 0 10px;}
+  header.hero h1{font-size:26px;margin:0 0 8px;font-weight:700;line-height:1.5;}
+  header.hero .meta{font-size:13px;opacity:.92;margin-top:14px;}
+  header.hero .meta span{display:inline-block;margin-right:18px;}
+  section{margin-top:46px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--rose);}
+  .sec-no{background:var(--rose);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex:none;}
+  .sec-head h2{font-size:21px;margin:0;font-weight:700;}
+  /* KPI cards */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.03);}
+  .kpi .num{font-size:30px;font-weight:700;color:var(--rose);line-height:1.1;}
+  .kpi .lab{font-size:12px;color:var(--sub);margin-top:6px;}
+  .kpi .stars{color:#e6a817;font-size:15px;letter-spacing:1px;}
+  /* star bars */
+  .bars{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:16px;}
+  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0;}
+  .bar-row .lbl{width:42px;font-size:13px;color:var(--sub);flex:none;}
+  .bar-track{flex:1;background:#f0ece8;border-radius:8px;height:18px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#e6a817,#d98a14);}
+  .bar-row .val{width:78px;text-align:right;font-size:13px;color:var(--ink);flex:none;}
+  /* generic card */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,.03);}
+  .lead{font-size:15.5px;}
+  .lead b{color:var(--rose-d);}
+  /* columns merit/demerit */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .panel{border-radius:12px;padding:18px 20px;border:1px solid var(--line);}
+  .panel h3{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px;}
+  .panel.good{background:var(--green-l);border-color:#cfe6d0;}
+  .panel.good h3{color:var(--green);}
+  .panel.bad{background:var(--red-l);border-color:#f2cfc9;}
+  .panel.bad h3{color:var(--red);}
+  .panel ul{margin:0;padding-left:0;list-style:none;}
+  .panel li{padding:9px 0;border-top:1px dashed rgba(0,0,0,.08);}
+  .panel li:first-child{border-top:none;}
+  .panel li b{display:block;font-size:14.5px;margin-bottom:2px;}
+  .panel li span{font-size:13px;color:var(--sub);}
+  /* benefit */
+  .benefit{background:var(--amber-l);border:1px solid #f0dcb6;border-radius:12px;padding:20px 24px;margin-top:18px;}
+  .benefit h3{margin:0 0 12px;color:var(--amber);font-size:16px;}
+  .benefit .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .benefit .chip{background:#fff;border:1px solid #eccf93;border-radius:30px;padding:8px 16px;font-size:13.5px;}
+  /* axis table */
+  table{width:100%;border-collapse:collapse;margin-top:16px;background:var(--card);border-radius:12px;overflow:hidden;font-size:13.5px;}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  thead th{background:var(--rose);color:#fff;font-weight:600;font-size:13px;}
+  tbody tr:nth-child(even){background:#faf7f5;}
+  .cnt{text-align:center;font-weight:700;width:60px;}
+  .cnt.g{color:var(--green);}
+  .cnt.r{color:var(--red);}
+  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;}
+  .badge.split{background:#fff3cd;color:#9a6a00;border:1px solid #f0dca0;}
+  .insight{background:#fff8e6;border-left:5px solid #e6a817;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:14px;}
+  .insight b{color:var(--amber);}
+  /* improvement */
+  .imp{display:grid;grid-template-columns:1fr;gap:14px;margin-top:6px;}
+  .imp-item{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:10px;padding:16px 20px;}
+  .imp-item .issue{font-size:14.5px;font-weight:700;margin:0 0 6px;}
+  .imp-item .issue .tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin-right:8px;vertical-align:middle;}
+  .tag.fix{background:var(--red-l);color:var(--red);}
+  .tag.amp{background:var(--green-l);color:var(--green);}
+  .imp-item .action{font-size:13.5px;color:#444;margin:0;}
+  .imp-item .action b{color:var(--rose-d);}
+  /* diff table */
+  .difftbl td.now{color:#7a7a7a;}
+  .difftbl td.prop{background:#f4f9f4;}
+  .pending{background:#eef2f7;border:1px dashed #b9c4d4;border-radius:10px;padding:16px 20px;margin-top:14px;color:#3b4a5e;font-size:13.5px;}
+  .pending b{color:#1f3864;}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;color:var(--sub);text-align:center;}
+  @media(max-width:680px){.kpis{grid-template-columns:repeat(2,1fr);}.two{grid-template-columns:1fr;}header.hero h1{font-size:21px;}}
+  @media print{body{background:#fff;}.card,.kpi,.panel,table{box-shadow:none;}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <p class="kicker">AMAZON レビュー分析レポート</p>
+    <h1>オーガニック ローズヒップティー（実まで食べられる）<br>カスタマーレビュー分析</h1>
+    <div class="meta">
+      <span>ブランド：健康食品の原料屋</span>
+      <span>ASIN：B001EMT91E</span>
+      <span>分析対象：レビュー26件</span>
+      <span>作成日：2026-05-31</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ===== SECTION 1 ===== -->
+  <section>
+    <div class="sec-head"><div class="sec-no">1</div><h2>レビュー概要</h2></div>
+    <div class="kpis">
+      <div class="kpi"><div class="num">26</div><div class="lab">レビュー総数</div></div>
+      <div class="kpi"><div class="num">4.38</div><div class="stars">★★★★☆</div><div class="lab">平均評価</div></div>
+      <div class="kpi"><div class="num">92<small>%</small></div><div class="lab">★4以上の割合（24件）</div></div>
+      <div class="kpi"><div class="num">0</div><div class="lab">★2以下（低評価なし）</div></div>
+    </div>
+
+    <div class="bars">
+      <div class="bar-row"><div class="lbl">★5</div><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div><div class="val">12件（46%）</div></div>
+      <div class="bar-row"><div class="lbl">★4</div><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div><div class="val">12件（46%）</div></div>
+      <div class="bar-row"><div class="lbl">★3</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div class="val">2件（8%）</div></div>
+      <div class="bar-row"><div class="lbl">★2</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="val">0件</div></div>
+      <div class="bar-row"><div class="lbl">★1</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="val">0件</div></div>
+    </div>
+    <div class="insight">
+      全体として<b>★4以上が9割を超える高評価</b>。低評価（★1〜2）はゼロで、商品自体の満足度は安定して高い水準。
+      ★3の2件も「好みが分かれる」という趣旨で、品質への不満ではありません。
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2 ===== -->
+  <section>
+    <div class="sec-head"><div class="sec-no">2</div><h2>レビューまとめ</h2></div>
+    <div class="card">
+      <p class="lead" style="margin-top:0;">
+        一般的なローズヒップティーは「酸味が強い」印象を持たれがちですが、本品は
+        <b>「酸味が控えめでクセがなく飲みやすい」</b>という声が最も多く、好評価の中心になっています。
+        加えて<b>ノンカフェイン・有機JAS・ビタミンC（レモン約20倍）</b>といった
+        「安心して続けられる美容・健康茶」としての価値が評価されています。<br><br>
+        一方、本品最大の特徴である<b>“実まで食べられる”点は評価が明確に二分</b>。
+        「柔らかく食べやすい／ヨーグルト等にアレンジでき栄養を丸ごと摂れる」という肯定派と、
+        「硬い・ジャリジャリ（あらびきコショウや砂利のよう）で、あえて食べるほどではない」という否定派が拮抗しています。
+        <b>“実の美味しい食べ方・アレンジの見せ方”が、商品ページ改善の最大の余地</b>です。
+      </p>
+    </div>
+
+    <div class="two">
+      <div class="panel good">
+        <h3>◎ メリット（強み）</h3>
+        <ul>
+          <li><b>酸味が控えめで飲みやすい</b><span>一般的なローズヒップよりマイルドでクセが少なく「普通のお茶感覚」。甘味料なしでも飲める。</span></li>
+          <li><b>ノンカフェインで時間帯を選ばない</b><span>就寝前のリラックスや妊娠中でも安心という声が多数。</span></li>
+          <li><b>有機JAS・100%オーガニックの安心感</b><span>原材料はローズヒップのみとシンプル。契約農場・有機認証で家族でも安心。</span></li>
+          <li><b>豊富な栄養価（美容・健康）</b><span>ビタミンCがレモン約20倍ほか。自然食品から摂れる「食べる美容液」。</span></li>
+          <li><b>実まで丸ごと×アレンジ自在</b><span>ファインカットで栄養を余さず摂取。ヨーグルト・クッキー・ジャム・カレー等に応用。</span></li>
+          <li><b>続けやすい使い勝手</b><span>水出し可・抽出が早い・チャック袋で保存便利。ホット／アイス／料理用と多用途。</span></li>
+        </ul>
+      </div>
+      <div class="panel bad">
+        <h3>△ デメリット（気になる点）</h3>
+        <ul>
+          <li><b>実の食感が硬い／ジャリジャリ</b><span>「あらびきコショウ」「砂利を噛む」等、賛否が最も分かれる点。</span></li>
+          <li><b>粉が口に残る／底に沈む・片付け</b><span>カップに直接入れると粉が口に。茶こし／ティーバッグ推奨だが目が粗いと通り抜け。</span></li>
+          <li><b>バラの香りは控えめ</b><span>華やかなバラの香りを期待するとギャップ。香りはスッキリ寄り。</span></li>
+          <li><b>味の評価が分かれる</b><span>少数だが「特別美味しくはない／酸味が強い」との声。甘味を足すと改善。</span></li>
+          <li><b>初心者には好みが分かれる</b><span>ハーブティーに不慣れだと酸味・食感が独特に感じられる場合あり。</span></li>
+          <li><b>健康面の注意書きが小さい</b><span>腎機能・服薬中の方への注意がページ上で小さい、との指摘。</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit">
+      <h3>♥ お客様ベネフィット（訴求に使える便益）</h3>
+      <div class="chips">
+        <span class="chip">飲んで終わりでなく“実まで食べる”美容習慣</span>
+        <span class="chip">ノンカフェイン＆有機JASで家族みんな安心</span>
+        <span class="chip">ビタミンCで内側から美肌・体調管理</span>
+        <span class="chip">1袋でホット／水出し／料理用と通年多用途</span>
+        <span class="chip">甘味料なしでも飲める手軽さ</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;margin:30px 0 0;">評価軸別の集計（全26件を内容で分類／複数軸該当あり）</h3>
+    <table>
+      <thead>
+        <tr><th>評価軸</th><th class="cnt">言及</th><th class="cnt">好意的</th><th class="cnt">気になる</th><th>主な声</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>味・酸味のバランス</b></td><td class="cnt">25</td><td class="cnt g">20</td><td class="cnt r">3</td><td>「酸味はかなり控えめで飲みやすい」「爽やかでしつこくない」</td></tr>
+        <tr><td><b>香り・風味</b></td><td class="cnt">9</td><td class="cnt g">5</td><td class="cnt r">4</td><td>「ローズの良い香り」一方「香りは控えめ」「梅干しっぽい」</td></tr>
+        <tr><td><b>実の食べやすさ・食感</b> <span class="badge split">賛否拮抗</span></td><td class="cnt">22</td><td class="cnt g">12</td><td class="cnt r">10</td><td>肯定「柔らかく口でほろっと崩れる」／否定「あらびきコショウ」「ジャリジャリ」</td></tr>
+        <tr><td><b>健康・美容効果</b></td><td class="cnt">13</td><td class="cnt g">12</td><td class="cnt r">1</td><td>「ビタミンCレモン約20倍で体に良さそう」（注意：服薬中は要相談の声1件）</td></tr>
+        <tr><td><b>オーガニック・品質・安心感</b></td><td class="cnt">11</td><td class="cnt g">11</td><td class="cnt r">0</td><td>「有機JAS認証100%オーガニック」「添加物なしで安心」</td></tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      <b>最重要インサイト：</b>「実の食べやすさ・食感」が <b>好意12 vs 気になる10</b> とほぼ拮抗。
+      実の<b>“美味しい食べ方・ふやかし方・アレンジ”の見せ方</b>が、満足度を底上げする最大のポイントです。
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3 ===== -->
+  <section>
+    <div class="sec-head"><div class="sec-no">3</div><h2>商品ページ改善提案（既存ページとの差分）</h2></div>
+    <div class="card" style="margin-bottom:18px;">
+      <p style="margin:0;">現行のサブ画像7枚を確認しました。<b>栄養価・アレンジ・オーガニック認証・ノンカフェインは既に作り込まれており完成度が高い</b>です。
+      一方で、レビューの不満が集中する<b>「淹れ方」「実の硬さ対策」「水出し・多用途」が画像に不足</b>しています。
+      ここを補うことで満足度とコンバージョンの底上げが期待できます。</p>
+    </div>
+
+    <h3 style="font-size:16px;margin:28px 0 0;">現行ページの画像構成（サブ画像7枚）</h3>
+    <table>
+      <thead><tr><th style="width:46px">No.</th><th style="width:34%">内容</th><th>訴求ポイント</th></tr></thead>
+      <tbody>
+        <tr><td class="cnt">1</td><td><b>メイン（白抜き）</b></td><td>パッケージ＋「自然な酸味／有機ローズヒップ100%」帯</td></tr>
+        <tr><td class="cnt">2</td><td><b>実まで食べられる</b></td><td>抽出後の実をスプーンで／タグ「オーガニック・天然ビタミンC・ノンカフェイン」</td></tr>
+        <tr><td class="cnt">3</td><td><b>栄養価インフォグラフィック</b></td><td>ビタミンCレモン約20倍・カルシウム約9倍・リコピン約8倍・食物繊維（出典付き）</td></tr>
+        <tr><td class="cnt">4</td><td><b>食べるハーブティー（アレンジ）</b></td><td>ヨーグルト／お菓子作り＋ファインカット説明</td></tr>
+        <tr><td class="cnt">5</td><td><b>なぜ美味しいの？</b></td><td>旬採取・有機認定100%・自然な酸味／ノンカフェインで続けやすい</td></tr>
+        <tr><td class="cnt">6</td><td><b>オーガニック認証</b></td><td>化学肥料・農薬なし／チリ産／有機JAS・USDA・IMO</td></tr>
+        <tr><td class="cnt">7</td><td><b>原料屋のお約束</b></td><td>当日発送・30日間返金保証・遺伝子組み換え原料なし</td></tr>
+      </tbody>
+    </table>
+    <div class="insight">
+      枚数は<b>7枚（白抜き＋6枚）で社内基準を充足</b>。基礎は揃っているため、<b>「差し替え」より「不足画像の追加・一部強化」</b>が有効です。
+    </div>
+
+    <h3 style="font-size:16px;margin:30px 0 0;">レビュー課題 × 現状ページ × 提案</h3>
+    <table class="difftbl">
+      <thead>
+        <tr><th style="width:22%">レビューの声</th><th style="width:34%">現状ページの対応</th><th style="width:34%">提案</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>淹れ方が分からない／粉が口に残る・片付けが面倒</b>（#8,16,22,26）</td>
+          <td class="now"><span class="badge" style="background:var(--red-l);color:var(--red);">未対応</span> 淹れ方ステップ・茶こし／ティーバッグの図解が画像にない</td>
+          <td class="prop"><b>【新規追加】</b>「淹れ方STEP＋2WAY（漉して飲む／そのまま食べる）」画像。分量4g・湯150〜200ml・85℃の目安も明記</td>
+        </tr>
+        <tr>
+          <td><b>実が硬い・ジャリジャリ（あらびきコショウ/砂利）</b>（#1,4,5,6,9）<br><span class="badge split">否定最大</span></td>
+          <td class="now"><span class="badge" style="background:var(--amber-l);color:var(--amber);">一部</span> 画像2・4で「食べられる／アレンジ」は訴求済。だが“硬さ対策”の説明なし</td>
+          <td class="prop"><b>【新規追加】</b>「美味しく食べるコツ」画像。長めにふやかすとほろっと柔らかくなるビフォーアフター、一晩寝かせる等の知見を可視化</td>
+        </tr>
+        <tr>
+          <td><b>水出しが便利・夏に良い／料理にも使える</b>（#3,14,16,22,24）</td>
+          <td class="now"><span class="badge" style="background:var(--red-l);color:var(--red);">未対応</span> 画像に水出し・料理用の使い分けがない</td>
+          <td class="prop"><b>【新規追加】</b>「ホット／水出し／料理用」通年ビジュアル。夏のマイボトル・アイス利用シーン</td>
+        </tr>
+        <tr>
+          <td><b>酸味が控えめで飲みやすい</b>（好評の中心）</td>
+          <td class="now"><span class="badge" style="background:var(--amber-l);color:var(--amber);">一部</span> 画像1・5に「自然な酸味」表記のみ。比較訴求は弱い</td>
+          <td class="prop"><b>【強化】</b>「一般的なローズヒップより酸味マイルド・甘味料なしでも飲める」の比較コピーを上位画像に</td>
+        </tr>
+        <tr>
+          <td><b>バラの香りを期待しギャップ</b>（#6,10,15）</td>
+          <td class="now"><span class="badge" style="background:var(--red-l);color:var(--red);">未対応</span> 香りに関する具体表現なし</td>
+          <td class="prop"><b>【強化】</b>「フルーティーな酸味×スッキリした後味」と味・香りの実態を言語化し期待値を調整</td>
+        </tr>
+        <tr>
+          <td><b>ビタミンC等の栄養価</b>（#3,6,10,16,20,24,25）</td>
+          <td class="now"><span class="badge" style="background:var(--green-l);color:var(--green);">充実◎</span> 画像3で出典付きインフォグラフィック完備</td>
+          <td class="prop"><b>【維持】</b>強みなので配置を上位（2〜3枚目）に。1枚目近くで早期訴求</td>
+        </tr>
+        <tr>
+          <td><b>アレンジ（ヨーグルト等）</b></td>
+          <td class="now"><span class="badge" style="background:var(--green-l);color:var(--green);">充実◎</span> 画像4で訴求済</td>
+          <td class="prop"><b>【維持・拡張】</b>レビュー発のレシピ（ジャム・カレー・ドレッシング等）を追記しても良い</td>
+        </tr>
+        <tr>
+          <td><b>オーガニック・認証の安心感</b></td>
+          <td class="now"><span class="badge" style="background:var(--green-l);color:var(--green);">充実◎</span> 画像6でJAS/USDA/IMO・チリ産まで明示</td>
+          <td class="prop"><b>【維持】</b>現状で十分強い</td>
+        </tr>
+        <tr>
+          <td><b>ノンカフェインで安心</b>（#1,4,11,14,17,22）</td>
+          <td class="now"><span class="badge" style="background:var(--green-l);color:var(--green);">対応◎</span> 画像2・5でタグ訴求済</td>
+          <td class="prop"><b>【強化】</b>「就寝前・妊娠中でも安心」を一言添えると訴求力UP</td>
+        </tr>
+        <tr>
+          <td><b>健康食品としての注意書きが小さい</b>（#18）</td>
+          <td class="now"><span class="badge" style="background:var(--red-l);color:var(--red);">未対応</span> 腎機能・服薬中への注意が画像にない</td>
+          <td class="prop"><b>【任意追加】</b>注意事項を読みやすく明記。信頼性向上・クレーム予防</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:16px;margin:30px 0 0;">優先的に追加・強化したい画像（おすすめ順）</h3>
+    <div class="imp">
+      <div class="imp-item">
+        <p class="issue"><span class="tag fix">最優先・新規</span>① 淹れ方STEP ＋ 2WAY（漉す／そのまま食べる）</p>
+        <p class="action">レビュー不満トップ層の「淹れ方が分からない・粉が口に残る・片付け面倒」を直接解消。<b>分量／湯温／時間の目安</b>と、<b>茶こしで漉す or 実ごと食べるの選択</b>を図解。離脱・低評価の予防に最も効く。</p>
+      </div>
+      <div class="imp-item">
+        <p class="issue"><span class="tag fix">高優先・新規</span>② 実を美味しく食べるコツ（ふやかし方）</p>
+        <p class="action">否定が最も多い「実が硬い・ジャリジャリ」への先回り。<b>長めに蒸らすと柔らかくなる様子</b>をビフォーアフターで見せ、賛否の分かれ目を肯定側へ。</p>
+      </div>
+      <div class="imp-item">
+        <p class="issue"><span class="tag amp">高優先・新規</span>③ 水出し＆多用途（ホット／アイス／料理）</p>
+        <p class="action">レビューで人気の<b>水出し・通年需要</b>を可視化。夏のマイボトル等で利用シーンを拡張し、購入動機を増やす。</p>
+      </div>
+      <div class="imp-item">
+        <p class="issue"><span class="tag amp">中優先・強化</span>④ 酸味マイルド比較 ＋ 味・香りの実態コピー</p>
+        <p class="action">好評の中心「酸味控えめで飲みやすい」を上位画像で比較訴求。同時にバラの香り期待とのギャップも言語化で調整。</p>
+      </div>
+      <div class="imp-item">
+        <p class="issue"><span class="tag fix">任意</span>⑤ 健康面の注意書き</p>
+        <p class="action">腎機能・服薬中の方への注意を明記し、信頼性向上とクレーム予防（レビュー#18の指摘）。</p>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:18px;">
+      <b>まとめ：</b>現状は栄養・アレンジ・認証など「魅力訴求」が強い一方、<b>「使い方の不安解消」が手薄</b>。
+      ①淹れ方／②実の食べ方コツ／③水出し多用途 の<b>3枚を追加</b>し、酸味マイルド訴求を上位に置くのが最短の改善ルートです。
+    </div>
+  </section>
+
+  <footer>
+    本レポートはAmazonレビュー26件（取得日2026-05-31）の分析と、現行商品画像7枚の確認に基づきます。
+  </footer>
+</div>
+</body>
+</html>
